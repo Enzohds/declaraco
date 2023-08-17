@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Despertador</title>
+</head>
+<body>
+    <h1>Despertador</h1>
+    
+    <p>Defina o tempo para o alarme:</p>
+    
+    <!-- Input para inserir o tempo do alarme no formato de hora -->
+    <input type="time" id="alarmTime">
+    
+    <!-- Botão para definir o alarme -->
+    <button onclick="setAlarm()">Definir Alarme</button>
+    
+    <!-- Botão para parar o alarme -->
+    <button onclick="stopAlarm()">Parar Alarme</button>
+    
+    <script>
+        // Variável para armazenar o intervalo do alarme
+        let alarmInterval;
+        
+        // Função para definir o alarme
+        function setAlarm() {
+            // Obtém o elemento de input do tempo do alarme
+            const alarmTimeInput = document.getElementById('alarmTime');
+            // Obtém o valor do tempo do alarme do input
+            const alarmTime = alarmTimeInput.value;
+            
+            // Cria um objeto de data atual
+            const now = new Date();
+            // Cria um objeto de data para a hora do alarme no mesmo dia que hoje
+            const alarmDate = new Date(now.toDateString() + ' ' + alarmTime);
+            
+            // Obtém a hora atual
+            const currentTime = new Date();
+            // Calcula o tempo restante até o alarme
+            const timeUntilAlarm = alarmDate - currentTime;
+            
+            // Verifica se o tempo até o alarme é válido
+            if (timeUntilAlarm <= 0) {
+                alert('Tempo inválido para o alarme.');
+                return;
+            }
+            
+            // Define o intervalo para tocar o alarme
+            alarmInterval = setTimeout(playAlarm, timeUntilAlarm);
+            alert('Alarme definido para ' + alarmTime);
+        }
+        
+        // Função para reproduzir o alarme
+        function playAlarm() {
+            alert('ALARM!!! Hora de acordar!');
+        }
+        
+        // Função para parar o alarme
+        function stopAlarm() {
+            // Limpa o intervalo do alarme
+            clearTimeout(alarmInterval);
+            alert('Alarme parado.');
+        }
+    </script>
+</body>
+</html>
+
